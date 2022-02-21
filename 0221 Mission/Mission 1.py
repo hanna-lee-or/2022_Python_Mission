@@ -7,21 +7,26 @@
         - 't: datetime' : 현재 시각 now
         - 'fmt: str' : 해당 문자열 포맷으로 시간 값 변환
         - 'tz: str' : 지정한 시간대 UTC/KST 타입으로 시간 값 변환 (default = KST)
+        - return : 변환된 시간 문자열 반환
 
     [2] time_to_fstr 함수 파라미터
         - 't: datetime' : 변환할 시간 값
         - 'fmt: str' : 해당 문자열 포맷으로 시간 값 변환
+        - return : 변환된 시간 문자열 반환
 
     [3] utc_to_kst 함수 파라미터
         - 't: datetime' : kst 시간대로 변환할 시간 값
+        - return : kst 기준 시간 값 (datetime) 반환
 """
 
 from datetime import datetime, timezone, timedelta
 
 
+# datetime(UTC) -> datetime(KST)
 def utc_to_kst(t: datetime) -> datetime:
     kst = timezone(timedelta(hours=9))
-    return t.astimezone(kst)
+    kst_t = t.astimezone(kst)
+    return kst_t
 
 
 # datetime -> Format String 에 맞춰 변환
@@ -35,7 +40,8 @@ def time_to_fstr(t: datetime, fmt: str) -> str:
                    'MM': '%M', 'SS': '%S'}      # 분 / 초
     for key in trans_table:
         fmt = fmt.replace(key, trans_table[key])
-    return t.strftime(fmt)
+    trans_t = t.strftime(fmt)
+    return trans_t
 
 
 # 현재 시간 정보(UTC 기준)를 지정한 시간대, 출력 포맷으로 변환
