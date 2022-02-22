@@ -42,9 +42,13 @@ def time_to_fstr(t: datetime, fmt: str) -> str:
 def trans_time(t: datetime, fmt: str, tz: str = 'KST') -> str:
     """ 현재 시간 정보(UTC 기준)를 지정한 시간대, 출력 포맷으로 변환 """
 
-    # 파라미터 유효성 체크
+    # 파라미터 타입 체크
     if not isinstance(t, datetime):
         return 'Wrong time (not datetime)'
+    elif not isinstance(fmt, str):
+        return 'Wrong format (not string)'
+    elif not isinstance(tz, str):
+        return 'Wrong time_zone (not string)'
 
     tz = tz.upper()
     if tz not in ['KST', 'UTC']:
@@ -65,7 +69,7 @@ if __name__ == '__main__':
     now = datetime.now(timezone.utc)
     ftz = [('yyyy-mm-dd HH:MM:SS', 'KST'), ('yy년 mm월 dd일', 'error'),
            ('현재 SS초, MM분 SS초 입니다.', 'UTC'), ('mm 월 MM 분', 'kst'),
-           ('%Y-%m-%d %H:%M:%S', 'utc'), ('-', 'utc')]
+           ('%Y-%m-%d %H:%M:%S', 'utc'), ('-', 'utc'), (' ', 1)]
     for i in range(len(ftz)):
         print(f"[{i}]", trans_time(now, ftz[i][0], ftz[i][1]))
 

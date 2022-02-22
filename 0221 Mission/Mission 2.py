@@ -13,6 +13,11 @@ import re
 # 도메인에 [-] 문자를 사용할 수 있고, 최상위 도메인이 여러 단계일 수 있음.
 def check_email_fmt(email: str) -> bool:
     """ 이메일 형식 유효성 체크 """
+
+    # 파라미터 타입 체크
+    if not isinstance(email, str):
+        return 'Wrong email (not string)'
+
     regex = '([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+' \
             '@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+'
     valid = re.fullmatch(regex, email)
@@ -25,6 +30,6 @@ def check_email_fmt(email: str) -> bool:
 # 테스트 코드
 if __name__ == '__main__':
     emails = ["email@email.com", "email@email..com",
-              "em.a.il@email.co.kr", "dan@[128.6.3.40]"]
+              "em.a.il@email.co.kr", "dan@[128.6.3.40]", 1]
     for i, e in enumerate(emails):
         print(f"[{i}]", check_email_fmt(e))
