@@ -17,7 +17,7 @@ def xlsx_to_db(fname: str) -> bool:
     return True
 
 
-def xlsx_to_db(fname: str) -> bool:
+def db_to_xlsx(fname: str) -> bool:
     """ DB 테이블을 읽어서 fname.xlsx 엑셀 파일에 저장 """
     pass
     return True
@@ -25,7 +25,6 @@ def xlsx_to_db(fname: str) -> bool:
 
 # 테스트 코드
 if __name__ == '__main__':
-    fnames = ["email@email.com", "email@email..com",
-              "em.a.il@email.co.kr", "dan@[128.6.3.40]"]
-    for i, e in enumerate(fnames):
-        print(f"[{i}]", check_email_fmt(fnames))
+    fnames = ("서울도서관 분야별 장서현황_지식문화과", "DB 장서현황")
+    print(f"[{fnames[0]} -> DB]", xlsx_to_db(fnames))
+    print(f"[DB -> {fnames[1]}]", db_to_xlsx(fnames))
